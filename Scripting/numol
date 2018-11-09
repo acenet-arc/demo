@@ -1,0 +1,8 @@
+#!/bin/bash
+# Some fakery so we can pretend this is a computational chemistry
+# program.  Count the ATOM lines in the standard input, then
+# print it out as a negative real number.
+# Ross Dickson, 2013.01.22
+n=$(grep -c ATOM)
+echo "This is NUMOL (Kidding!)"
+echo "The energy is -$n.00"

@@ -1,0 +1,25 @@
+# Makefile for ParNum with OpenMPI at ACEnet
+# Ross M. Dickson, 2008
+
+NUMOLOBJS = linpack.o eispack.o lebedev.o headers.o input.o xc.o scfnum.o scfnumx.o parnum.o
+FFLAGS = -fast -g
+
+parnum: $(NUMOLOBJS)
+	mpif90 $(FFLAGS) -o parnum $(NUMOLOBJS) -llapack -lblas
+
+.f.o:
+	mpif90 $(FFLAGS) -c -o $@ $<
+
+input.o: input.f headers.o
+
+scfnum.o: scfnum.f headers.o
+
+scfnumx.o: scfnumx.f headers.o
+
+parnum.o: parnum.f headers.o
+
+clean:
+	-rm *.o *.mod
+
+realclean: clean
+	-rm parnum

@@ -1,0 +1,37 @@
+# Makefile for ParNum with OpenMPI at ACEnet
+# v2 demonstrates variables and variable expansion
+
+FFLAGS = -fast -g
+FC = mpif90
+
+OBJS = linpack.o eispack.o lebedev.o headers.o input.o xc.o scfnum.o scfnumx.o parnum.o
+
+parnum: $(OBJS)
+	$(FC) $(FFLAGS) $(OBJS) -llapack -lblas -o parnum
+
+linpack.o: linpack.f
+	$(FC) $(FFLAGS) -c linpack.f
+
+eispack.o: eispack.f
+	$(FC) $(FFLAGS) -c eispack.f
+
+lebedev.o: lebedev.f
+	$(FC) $(FFLAGS) -c lebedev.f
+
+xc.o: xc.f
+	$(FC) $(FFLAGS) -c xc.f
+
+headers.o: headers.f
+	$(FC) $(FFLAGS) -c headers.f
+
+input.o: headers.o input.f
+	$(FC) $(FFLAGS) -c input.f
+
+scfnum.o: headers.o scfnum.f 
+	$(FC) $(FFLAGS) -c scfnum.f
+
+scfnumx.o: headers.o scfnumx.f
+	$(FC) $(FFLAGS) -c scfnumx.f
+
+parnum.o: headers.o parnum.f
+	$(FC) $(FFLAGS) -c parnum.f
