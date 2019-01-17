@@ -1,31 +1,37 @@
-# Primitive makefile for ParNum with OpenMPI at ACEnet
+# Primitive makefile for ParNum with OpenMPI at ACENET / Compute Canada
+# 
+# For use with 'gfortran' replace '-mkl=sequential' with '-lopenblas' 
+# and load the openblas module ('module load openblas').
+#
+# Ross M. Dickson, 2008
+# Oliver Stueker, 2019 (updated for Compute Canada)
 
 parnum: linpack.o eispack.o lebedev.o headers.o input.o xc.o scfnum.o scfnumx.o parnum.o
-	mpif90 -fast -g linpack.o eispack.o lebedev.o headers.o input.o xc.o scfnum.o scfnumx.o parnum.o -llapack -lblas -o parnum
+	mpif90 -Ofast -g linpack.o eispack.o lebedev.o headers.o input.o xc.o scfnum.o scfnumx.o parnum.o -mkl=sequential -o parnum
 
 linpack.o: linpack.f
-	mpif90 -fast -g -c linpack.f
+	mpif90 -Ofast -g -c linpack.f
 
 eispack.o: eispack.f
-	mpif90 -fast -g -c eispack.f
+	mpif90 -Ofast -g -c eispack.f
 
 lebedev.o: lebedev.f
-	mpif90 -fast -g -c lebedev.f
+	mpif90 -Ofast -g -c lebedev.f
 
 xc.o: xc.f
-	mpif90 -fast -g -c xc.f
+	mpif90 -Ofast -g -c xc.f
 
 headers.o: headers.f
-	mpif90 -fast -g -c headers.f
+	mpif90 -Ofast -g -c headers.f
 
 input.o: headers.o input.f
-	mpif90 -fast -g -c input.f
+	mpif90 -Ofast -g -c input.f
 
 scfnum.o: headers.o scfnum.f 
-	mpif90 -fast -g -c scfnum.f
+	mpif90 -Ofast -g -c scfnum.f
 
 scfnumx.o: headers.o scfnumx.f
-	mpif90 -fast -g -c scfnumx.f
+	mpif90 -Ofast -g -c scfnumx.f
 
 parnum.o: headers.o parnum.f
-	mpif90 -fast -g -c parnum.f
+	mpif90 -Ofast -g -c parnum.f

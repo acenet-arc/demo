@@ -1,11 +1,15 @@
-# Makefile for ParNum with OpenMPI at ACEnet
+# Makefile for ParNum with OpenMPI at ACENET / Compute Canada
+#
+# For use with 'gfortran' replace '-mkl=sequential' with '-lopenblas' 
+# and load the openblas module ('module load openblas').
+#
 # Ross M. Dickson, 2008
-
+# Oliver Stueker, 2019 (updated for Compute Canada)
 NUMOLOBJS = linpack.o eispack.o lebedev.o headers.o input.o xc.o scfnum.o scfnumx.o parnum.o
-FFLAGS = -fast -g
+FFLAGS = -Ofast -g
 
 parnum: $(NUMOLOBJS)
-	mpif90 $(FFLAGS) -o parnum $(NUMOLOBJS) -llapack -lblas
+	mpif90 $(FFLAGS) -o parnum $(NUMOLOBJS) -mkl=sequential
 
 .f.o:
 	mpif90 $(FFLAGS) -c -o $@ $<

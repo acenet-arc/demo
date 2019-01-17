@@ -1,13 +1,18 @@
-# Makefile for ParNum with OpenMPI at ACEnet
+# Makefile for ParNum with OpenMPI at ACENET / Compute Canada
 # v2 demonstrates variables and variable expansion
-
-FFLAGS = -fast -g
+#
+# For use with 'gfortran' replace '-mkl=sequential' with '-lopenblas' 
+# and load the openblas module ('module load openblas').
+#
+# Ross M. Dickson, 2008
+# Oliver Stueker, 2019 (updated for Compute Canada)
+FFLAGS = -Ofast -g
 FC = mpif90
 
 OBJS = linpack.o eispack.o lebedev.o headers.o input.o xc.o scfnum.o scfnumx.o parnum.o
 
 parnum: $(OBJS)
-	$(FC) $(FFLAGS) $(OBJS) -llapack -lblas -o parnum
+	$(FC) $(FFLAGS) $(OBJS) -mkl=sequential  -o parnum
 
 linpack.o: linpack.f
 	$(FC) $(FFLAGS) -c linpack.f
