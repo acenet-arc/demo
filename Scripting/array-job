@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+# Type 'sbatch array-job' *once* to run *all* the molecules in 'test-set'.
+# Don't try to run this with 'bash array-job', it won't work.
+#
+#SBATCH --time=00:05:00
+#SBATCH --array=1-4
+
+MOLECULE=$(sed -n "${SLURM_ARRAY_TASK_ID}p" test-set)
+./numol < ${MOLECULE}.in > ${MOLECULE}.out
