@@ -1,3 +1,2 @@
 #!/bin/bash
-#SBATCH --time=1:0:0
 ./numol < methane.in > methane.out

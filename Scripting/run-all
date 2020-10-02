@@ -1,0 +1,11 @@
+#!/bin/bash
+
+ls *.in | sed 's/.in//' >test-set
+
+for molecule in $(cat test-set)
+do
+   echo Working on $molecule
+   ./numol < $molecule.in > $molecule.out
+done
+
+grep 'The energy is' *.out | sed 's/.out:The energy is//' >results

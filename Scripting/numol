@@ -5,4 +5,5 @@
 # Ross Dickson, 2013.01.22
 n=$(grep -c ATOM)
 echo "This is NUMOL (Kidding!)"
+sleep $n                # pretend to compute for n seconds
 echo "The energy is -$n.00"
